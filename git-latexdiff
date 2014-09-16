@@ -1,0 +1,12 @@
+#!/bin/bash
+WASDIR=$(pwd)
+TMPDIR=$(mktemp -d /home/mhoecker/tmp/git-latexdiff.XXXXXX)
+latexdiff --flatten --math-markup=1 --driver=pdftex --type=CFONT "$1" "$2" > $TMPDIR/diff.tex
+cd $TMPDIR
+pdflatex -interaction=nonstopmode -quiet -output-directory $TMPDIR $TMPDIR/diff.tex
+bibtex $TMPDIR/latexdiff
+pdflatex -interaction nonstopmode -quiet -output-directory $TMPDIR $TMPDIR/diff.tex
+pdflatex -interaction nonstopmode -quiet -output-directory $TMPDIR $TMPDIR/diff.tex
+evince diff.pdf
+rm -rf $TMPDIR
+cd $WASDIR
