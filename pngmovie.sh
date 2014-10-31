@@ -59,3 +59,4 @@ case "$TYPE" in
             nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=2:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of lavf -o $NAME.$TYPE
             rm divx2pass.log;;
 esac
+echo "Created movie $NAME.$TYPE from png files in $LOC using bitrate $VBR frame rate $FPS sacled to width $SCALE pixels"
