@@ -41,22 +41,22 @@ done
 echo "Creating movie $NAME.$TYPE from png files in $LOC using bitrate $VBR frame rate $FPS sacled to width $SCALE pixels"
 case "$TYPE" in
 #make animated gif
-      gif)  convert -delay $FPS -loop 0  $LOC*.png animated.gif;;
+      gif)  convert -quiet -delay $FPS -loop 0  $LOC*.png animated.gif;;
 #make the windows version
-      avi)  nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=1:vbitrate=$VBR:vpass=1:mbd=2 -nosound -of avi -o $NAME.$TYPE
-            nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=3:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of avi  -o $NAME.$TYPE
-            nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=2:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of avi  -o $NAME.$TYPE
+      avi)  nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=1:vbitrate=$VBR:vpass=1:mbd=2 -nosound -of avi -o $NAME.$TYPE
+            nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=3:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of avi  -o $NAME.$TYPE
+            nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=msmpeg4v2:vpass=2:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of avi  -o $NAME.$TYPE
             rm divx2pass.log;;
 #make the vorbis version
-      ogv)  nice -n 5 avconv -y -pass 1 -r $FPS -vb ${VBR}k -vf scale=$SCALE:-1 -i $LOC%04d.png  $NAME.$TYPE
-            nice -n 5 avconv -y -pass 2 -r $FPS -vb ${VBR}k -vf scale=$SCALE:-1 -i $LOC%04d.png  $NAME.$TYPE
+      ogv)  nice -n 5 avconv -loglevel 'quiet' -y -pass 1 -r $FPS -vb ${VBR}k -vf scale=$SCALE:-1 -i $LOC%04d.png  $NAME.$TYPE
+            nice -n 5 avconv -loglevel 'quiet' -y -pass 2 -r $FPS -vb ${VBR}k -vf scale=$SCALE:-1 -i $LOC%04d.png  $NAME.$TYPE
             rm av2pass-0.log;;
 #make the mpeg1 version
-      mpg) nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d,decimate,softskip -ovc lavc -lavcopts vcodec=mpeg1video -of mpeg -o $NAME.$TYPE;;
+      mpg) nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d,decimate,softskip -ovc lavc -lavcopts vcodec=mpeg1video -of mpeg -o $NAME.$TYPE;;
 #make the quicktime version
-      mov)  nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=1:vbitrate=$VBR:vpass=1:mbd=2 -nosound -of lavf -o $NAME.$TYPE
-            nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=3:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of lavf -o $NAME.$TYPE
-            nice -n 5 mencoder -quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=2:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of lavf -o $NAME.$TYPE
+      mov)  nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=1:vbitrate=$VBR:vpass=1:mbd=2 -nosound -of lavf -o $NAME.$TYPE
+            nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=3:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of lavf -o $NAME.$TYPE
+            nice -n 5 mencoder -really-quiet mf://$LOC*.png -mf type=png:fps=$FPS -vf scale=$SCALE:-2,denoise3d -ovc lavc -lavcopts vcodec=mpeg4:vpass=2:vbitrate=$VBR:trell:mbd=2:dia=4:last_pred=3 -nosound -of lavf -o $NAME.$TYPE
             rm divx2pass.log;;
 esac
 echo "Created movie $NAME.$TYPE from png files in $LOC using bitrate $VBR frame rate $FPS sacled to width $SCALE pixels"
