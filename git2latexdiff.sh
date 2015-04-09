@@ -26,5 +26,9 @@ else
     latexdiff -c PICTUREENV="(?:figure|figure\*|picture|DIFnomarkup)[\w\d*@]*" --flatten --math-markup=1 --floattype=TRADITIONALSAFE --driver=pdftex --type=CFONT "$old" "$new" > "$OUTDIR/$tmpdif.tex"
     rm -rf $TMPDIR
     cd $OUTDIR
-    pdflatex -interaction nonstopmode -quiet "$tmpdif.tex" && bibtex "$tmpdif.aux" && pdflatex -interaction nonstopmode -quiet "$tmpdif.tex" && bibtex "$tmpdif.aux" && pdflatex -interaction nonstopmode -quiet "$tmpdif.tex"
+    latex -interaction nonstopmode -quiet "$tmpdif.tex"
+    bibtex "$tmpdif.aux"
+    pdflatex -interaction nonstopmode -quiet "$tmpdif.tex"
+    bibtex "$tmpdif.aux"
+    pdflatex -interaction nonstopmode -quiet "$tmpdif.tex"
 fi
