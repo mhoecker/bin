@@ -15,6 +15,10 @@ for i in "$@"
 			ZLIB=1
 			shift
 		;;
+		--git)
+			GIT=1
+			shift
+		;;
 		--fftw)
 			FFTW=1
 			shift
@@ -65,6 +69,11 @@ ZLIBVER="1.2.8"
 ZLIBDIR="$LOCALSRC/zlib-$ZLIBVER"
 ZLIBTAR="zlib-$ZLIBVER.tar.gz"
 ZLIBURL="http://zlib.net/zlib-$ZLIBTAR"
+#git
+GITVER="2.7.2"
+GITDIR="$LOCALSRC/git-$GITVER"
+GITTAR="git-$GITVER.tar.gz"
+GITURL="https://www.kernel.org/pub/software/scm/git/$GITTAR"
 # FFTW
 FFTWVER="3.3.4"
 FFTWDIR="$LOCALSRC/fftw-$FFTWVER"
@@ -98,6 +107,7 @@ NCOURL="http://nco.sourceforge.net/src/$NCOTAR"
 #
 echo "This script can install:"
 echo "zlib version $ZLIBVER"
+echo "git version $GITVER"
 echo "fftw version $FFTWVER"
 echo "netCDF version $NETCDFVER"
 echo "netCDF FORTRAN interface version $NETCDFFVER"
@@ -111,6 +121,18 @@ if [ "$ZLIB" -eq 1 ]; then
 	tar -C $LOCALSRC -zxf $LOCALSRC/$ZLIBTAR
 	#Configure and Make Zlib
 	cd $ZLIBDIR
+	./configure --prefix=$LOCALPREFIX
+	make
+	make install
+	make clean
+fi
+#INSTALL GIT
+if [ "$GIT" -eq 1 ]; then
+	#Get git
+	wget -c -N -nd -nH $GITURL -P $LOCALSRC
+	tar -C $LOCALSRC -zxf $LOCALSRC/$GITTAR
+	#Configure and Make git
+	cd $GITDIR
 	./configure --prefix=$LOCALPREFIX
 	make
 	make install
