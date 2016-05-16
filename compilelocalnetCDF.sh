@@ -43,8 +43,16 @@ for i in "$@"
 			NCO=1
 			shift
 		;;
+		--proj4)
+			PROJ4=1
+			shift
+		;;
+		--gdal)
+			GDAL=1
+			shift
+		;;
 		*)
-		echo "valid options are: --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
+		echo "valid options are: --proj4 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
 		;;
 	esac
 done
@@ -104,6 +112,16 @@ NCOVER="4.5.2"
 NCODIR="$LOCALSRC/nco-$NCOVER"
 NCOTAR="nco-$NCOVER.tar.gz"
 NCOURL="http://nco.sourceforge.net/src/$NCOTAR"
+#PROJ4
+PROJ4VER="4.9.2"
+PROJ4TAR="proj-$PROJ4VER.tar.gz"
+PROJ4URL="http://download.osgeo.org/proj/$PROJ4TAR"
+PROJ4DIR="$LOCALSRC/proj-$PROJ4VER"
+#GDAL
+GDALVER="2.1.0"
+GDALTAR="gdal-$GDALVER.tar.gz"
+GDALURL="http://download.osgeo.org/gdal/$GDALVER/$GDALTAR"
+GDALDIR="$LOCALSRC/gdal-$GDALVER"
 #
 echo "This script can install:"
 echo "zlib version $ZLIBVER"
@@ -212,6 +230,31 @@ if [ "$NCO" -eq 1 ]; then
 	LDFLAGS="-L$LOCALLIB" \
 	CPPFLAGS="-I$LOCALINC" \
 	./configure --prefix=$LOCALPREFIX
+	make
+	make install
+	make clean
+fi
+# INSTALL PROJ4?
+if [ "$PROJ4" -eq 1 ]; then
+	#Get proj4
+	wget -c -N -nd -nH $PROJ4URL -P $LOCALSRC
+	tar -C $LOCALSRC -zxf $LOCALSRC/$PROJ4TAR
+	cd $PROJ4DIR
+	./configure --prefix=$LOCALPREFIX
+	make
+	make install
+	make clean
+fi
+#INSTALL GDAL?
+if [ "$GDAL" -eq 1 ]; then
+	#Get GDAL
+	wget -c -N -nd -nH $GDALURL -P $LOCALSRC
+	tar -C $LOCALSRC -zxf $LOCALSRC/$GDALTAR
+	cd $GDALDIR
+	pwd
+	LDFLAGS="-L$LOCALLIB" \
+	CPPFLAGS="-I$LOCALINC" \
+	./configure --prefix=$LOCALPREFIX --with-libz=$LOCALLIB
 	make
 	make install
 	make clean
