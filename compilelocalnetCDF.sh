@@ -1,6 +1,6 @@
 #!/bin/bash
 LASTDIR=`pwd`
-echo "Usage: $0 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
+echo "Usage: $0 --git --proj4 --gdal --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
 ZLIB=0
 FFTW=0
 HDF5=0
@@ -8,6 +8,9 @@ NETCDF=0
 NETCDFF=0
 UDU=0
 NCO=0
+GIT=0
+PROJ4=0
+GDAL=0
 for i in "$@"
 	do
 	case $i in
@@ -52,7 +55,7 @@ for i in "$@"
 			shift
 		;;
 		*)
-		echo "valid options are: --proj4 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
+		echo "valid options are: --git --gdal --proj4 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
 		;;
 	esac
 done
@@ -88,10 +91,10 @@ FFTWDIR="$LOCALSRC/fftw-$FFTWVER"
 FFTWTAR="fftw-$FFTWVER.tar.gz"
 FFTWURL="http://www.fftw.org/$FFTWTAR"
 #HDF5
-HDF5VER="1.8.15-patch1"
+HDF5VER="1.10.0-patch1"
 HDF5DIR="$LOCALSRC/hdf5-$HDF5VER"
 HDF5TAR="hdf5-$HDF5VER.tar.gz"
-HDF5URL="http://www.hdfgroup.org/ftp/HDF5/current/src/$HDF5TAR"
+HDF5URL="http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.0-patch1/src/$HDF5TAR"
 # NETCDF 
 NETCDFVER="4.3.3.1"
 NETCDFDIR="$LOCALSRC/netcdf-$NETCDFVER"
