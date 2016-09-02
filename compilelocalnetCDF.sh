@@ -108,7 +108,7 @@ UDUDIR="$LOCALSRC/udunits-$UDUVER"
 UDUTAR="udunits-$UDUVER.tar.gz"
 UDUURL="ftp://ftp.unidata.ucar.edu/pub/udunits/$UDUTAR"
 # NCO
-NCOVER="4.5.2"
+NCOVER="4.5.4"
 NCODIR="$LOCALSRC/nco-$NCOVER"
 NCOTAR="nco-$NCOVER.tar.gz"
 NCOURL="http://nco.sourceforge.net/src/$NCOTAR"
