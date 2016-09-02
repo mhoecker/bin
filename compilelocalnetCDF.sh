@@ -260,7 +260,6 @@ if [ "$NCO" -eq 1 ]; then
 	cd $NCODIR
 	LDFLAGS="-L$LOCALLIB" \
 	CPPFLAGS="-I$LOCALINC" \
-	ANTLR_ROOT="$LOCAL" \
 	./configure --prefix=$LOCALPREFIX 
 	make
 	make install
