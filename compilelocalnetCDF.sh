@@ -42,6 +42,10 @@ for i in "$@"
 			UDU=1
 			shift
 		;;
+		--antlr)
+			ANTLR=1
+			shift
+		;;
 		--nco)
 			NCO=1
 			shift
@@ -110,6 +114,11 @@ UDUVER="2.2.19"
 UDUDIR="$LOCALSRC/udunits-$UDUVER"
 UDUTAR="udunits-$UDUVER.tar.gz"
 UDUURL="ftp://ftp.unidata.ucar.edu/pub/udunits/$UDUTAR"
+#ANTLR
+ANTLRVER="3.5.2"
+ANTLRDIR=$LOCALSRC/
+ANTLRJAR="antlr-${ANTLRVER}-complete.jar"
+ANTLRURL="http://www.antlr3.org/download/${ANTLRJAR}"
 # NCO
 NCOVER="4.5.4"
 NCODIR="$LOCALSRC/nco-$NCOVER"
@@ -222,6 +231,14 @@ if [ "$UDU" -eq 1 ]; then
 	make
 	make install
 	make clean
+fi
+# INSTALL ANTLR?
+if [ "$ANTLR" -eq 1 ]; then
+	#Get ANTLR
+	wget -c -N -nd -nH $ANTLRURL -P $LOCALSRC
+	# 
+	export CLASSPATH="${LOCALSRC}/${ANTLRJAR}:${CLASSPATH}"
+	java org.antlr.Tool -version
 fi
 # INSTALL NCO?
 if [ "$NCO" -eq 1 ]; then
