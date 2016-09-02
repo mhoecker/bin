@@ -1,6 +1,6 @@
 #!/bin/bash
 LASTDIR=`pwd`
-echo "Usage: $0 --git --proj4 --gdal --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
+echo "Usage: $0 --git --proj4 --gdal --zlib --fftw --hdf5 --netcdf --netcdff --udunits --antlr --nco"
 ZLIB=0
 FFTW=0
 HDF5=0
@@ -11,6 +11,7 @@ NCO=0
 GIT=0
 PROJ4=0
 GDAL=0
+ANTLR=0
 for i in "$@"
 	do
 	case $i in
@@ -59,7 +60,7 @@ for i in "$@"
 			shift
 		;;
 		*)
-		echo "valid options are: --git --gdal --proj4 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --nco"
+		echo "valid options are: --git --gdal --proj4 --zlib --fftw --hdf5 --netcdf --netcdff --udunits --antlr --nco"
 		;;
 	esac
 done
@@ -115,10 +116,10 @@ UDUDIR="$LOCALSRC/udunits-$UDUVER"
 UDUTAR="udunits-$UDUVER.tar.gz"
 UDUURL="ftp://ftp.unidata.ucar.edu/pub/udunits/$UDUTAR"
 #ANTLR
-ANTLRVER="3.5.2"
-ANTLRDIR=$LOCALSRC/
-ANTLRJAR="antlr-${ANTLRVER}-complete.jar"
-ANTLRURL="http://www.antlr3.org/download/${ANTLRJAR}"
+ANTLRVER="2.7.7"
+ANTLRDIR="$LOCALSRC/antlr-${ANTLRVER}"
+ANTLRTAR="antlr-${ANTLRVER}.tar.gz"
+ANTLRURL="http://www.antlr2.org/download/${ANTLRTAR}"
 # NCO
 NCOVER="4.5.4"
 NCODIR="$LOCALSRC/nco-$NCOVER"
@@ -143,6 +144,7 @@ echo "netCDF version $NETCDFVER"
 echo "netCDF FORTRAN interface version $NETCDFFVER"
 echo "UDUNITS version $UDUVER"
 echo "hdf5 version $HDF5VER"
+echo "antlr version $ANTLRVER"
 echo "nco version $NCOVER"
 #INSTALL ZLIB
 if [ "$ZLIB" -eq 1 ]; then
@@ -236,9 +238,18 @@ fi
 if [ "$ANTLR" -eq 1 ]; then
 	#Get ANTLR
 	wget -c -N -nd -nH $ANTLRURL -P $LOCALSRC
+	tar -C $LOCALSRC -zxf $LOCALSRC/$ANTLRTAR
 	# 
-	export CLASSPATH="${LOCALSRC}/${ANTLRJAR}:${CLASSPATH}"
-	java org.antlr.Tool -version
+	cd $ANTLRDIR
+	sed -i "13a #include <strings.h>" lib/cpp/antlr/CharScanner.hpp
+	sed -i "16a #include <cstdio>" lib/cpp/antlr/CharScanner.hpp
+	./configure --prefix=$LOCALPREFIX \
+		--dissable-csharp \
+		--dissable-java \
+		--dissable-python
+	make
+	make install
+	make clean
 fi
 # INSTALL NCO?
 if [ "$NCO" -eq 1 ]; then
@@ -249,7 +260,8 @@ if [ "$NCO" -eq 1 ]; then
 	cd $NCODIR
 	LDFLAGS="-L$LOCALLIB" \
 	CPPFLAGS="-I$LOCALINC" \
-	./configure --prefix=$LOCALPREFIX
+	ANTLR_ROOT="$LOCAL" \
+	./configure --prefix=$LOCALPREFIX 
 	make
 	make install
 	make clean
