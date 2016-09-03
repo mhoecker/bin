@@ -244,7 +244,7 @@ if [ "$ANTLR" -eq 1 ]; then
 	sed -i "13a #include <strings.h>" lib/cpp/antlr/CharScanner.hpp
 	sed -i "16a #include <cstdio>" lib/cpp/antlr/CharScanner.hpp
 	./configure --prefix=$LOCALPREFIX \
-		--dissable-csharp \
+#		--dissable-csharp \
 		--dissable-java \
 		--dissable-python
 	make
