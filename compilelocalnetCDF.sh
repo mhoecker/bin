@@ -217,7 +217,7 @@ if [ "$NETCDFF" -eq 1 ]; then
 	cd $NETCDFFDIR
 	LDFLAGS="-L$LOCALLIB" \
 	CPPFLAGS="-I$LOCALINC" \
-	./configure --prefix=$LOCALPREFIX
+	./configure --quiet --prefix=$LOCALPREFIX
 	make
 	make install
 	make clean
@@ -229,7 +229,7 @@ if [ "$UDU" -eq 1 ]; then
 	tar -C $LOCALSRC -zxf $LOCALSRC/$UDUTAR	
 #Configure and Make UDUNITS
 	cd $UDUDIR
-	./configure --prefix=$LOCALPREFIX
+	./configure --quiet --prefix=$LOCALPREFIX
 	make
 	make install
 	make clean
@@ -243,7 +243,7 @@ if [ "$ANTLR" -eq 1 ]; then
 	cd $ANTLRDIR
 	sed -i "13a #include <strings.h>" lib/cpp/antlr/CharScanner.hpp
 	sed -i "14a #include <stdio.h>" lib/cpp/antlr/CharScanner.hpp
-	./configure --prefix=$LOCALPREFIX 
+	./configure --quiet --prefix=$LOCALPREFIX 
 	make
 	make install
 	make clean
@@ -257,7 +257,7 @@ if [ "$NCO" -eq 1 ]; then
 	cd $NCODIR
 	LDFLAGS="-L$LOCALLIB" \
 	CPPFLAGS="-I$LOCALINC" \
-	./configure --prefix=$LOCALPREFIX 
+	./configure --quiet --prefix=$LOCALPREFIX 
 	make
 	make install
 	make clean
