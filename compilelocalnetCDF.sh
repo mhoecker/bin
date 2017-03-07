@@ -81,17 +81,17 @@ if [ ! -d $LOCALSRC ]; then
 	mkdir $LOCALSRC
 fi
 # zlib
-ZLIBVER="1.2.8"
+ZLIBVER="1.2.11"
 ZLIBDIR="$LOCALSRC/zlib-$ZLIBVER"
 ZLIBTAR="zlib-$ZLIBVER.tar.gz"
-ZLIBURL="http://zlib.net/zlib-$ZLIBTAR"
+ZLIBURL="http://www.zlib.net/$ZLIBTAR"
 #git
-GITVER="2.7.2"
+GITVER="2.12.0"
 GITDIR="$LOCALSRC/git-$GITVER"
 GITTAR="git-$GITVER.tar.gz"
 GITURL="https://www.kernel.org/pub/software/scm/git/$GITTAR"
 # FFTW
-FFTWVER="3.3.4"
+FFTWVER="3.3.6-pl1"
 FFTWDIR="$LOCALSRC/fftw-$FFTWVER"
 FFTWTAR="fftw-$FFTWVER.tar.gz"
 FFTWURL="http://www.fftw.org/$FFTWTAR"
@@ -101,17 +101,17 @@ HDF5DIR="$LOCALSRC/hdf5-$HDF5VER"
 HDF5TAR="hdf5-$HDF5VER.tar.gz"
 HDF5URL="http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.0-patch1/src/$HDF5TAR"
 # NETCDF 
-NETCDFVER="4.3.3.1"
+NETCDFVER="4.4.1.1"
 NETCDFDIR="$LOCALSRC/netcdf-$NETCDFVER"
 NETCDFTAR="netcdf-$NETCDFVER.tar.gz"
 NETCDFURL="ftp://ftp.unidata.ucar.edu/pub/netcdf/$NETCDFTAR"
 # NETCDF-FORTRAN
-NETCDFFVER="4.4.2"
+NETCDFFVER="4.4.4"
 NETCDFFDIR="$LOCALSRC/netcdf-fortran-$NETCDFFVER"
 NETCDFFTAR="netcdf-fortran-$NETCDFFVER.tar.gz"
 NETCDFFURL="ftp://ftp.unidata.ucar.edu/pub/netcdf/$NETCDFFTAR"
 # UDUNITS
-UDUVER="2.2.19"
+UDUVER="2.2.24"
 UDUDIR="$LOCALSRC/udunits-$UDUVER"
 UDUTAR="udunits-$UDUVER.tar.gz"
 UDUURL="ftp://ftp.unidata.ucar.edu/pub/udunits/$UDUTAR"
@@ -121,17 +121,17 @@ ANTLRDIR="$LOCALSRC/antlr-${ANTLRVER}"
 ANTLRTAR="antlr-${ANTLRVER}.tar.gz"
 ANTLRURL="http://www.antlr2.org/download/${ANTLRTAR}"
 # NCO
-NCOVER="4.5.4"
+NCOVER="4.6.4"
 NCODIR="$LOCALSRC/nco-$NCOVER"
 NCOTAR="nco-$NCOVER.tar.gz"
 NCOURL="http://nco.sourceforge.net/src/$NCOTAR"
 #PROJ4
-PROJ4VER="4.9.2"
+PROJ4VER="4.9.3"
 PROJ4TAR="proj-$PROJ4VER.tar.gz"
 PROJ4URL="http://download.osgeo.org/proj/$PROJ4TAR"
 PROJ4DIR="$LOCALSRC/proj-$PROJ4VER"
 #GDAL
-GDALVER="2.1.0"
+GDALVER="2.1.3"
 GDALTAR="gdal-$GDALVER.tar.gz"
 GDALURL="http://download.osgeo.org/gdal/$GDALVER/$GDALTAR"
 GDALDIR="$LOCALSRC/gdal-$GDALVER"
@@ -211,6 +211,7 @@ fi
 #INSTALL NETCDF FORTRAN INTERFACE?
 if [ "$NETCDFF" -eq 1 ]; then
 	#Get netCDF FORTRAN library
+	echo $NETCDFFURL
 	wget -c -N -nd -nH $NETCDFFURL -P $LOCALSRC
 	tar -C $LOCALSRC -zxf $LOCALSRC/$NETCDFFTAR	
 	#Configure and Make netCDF FORTRAN interface
