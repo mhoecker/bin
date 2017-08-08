@@ -121,7 +121,7 @@ ANTLRDIR="$LOCALSRC/antlr-${ANTLRVER}"
 ANTLRTAR="antlr-${ANTLRVER}.tar.gz"
 ANTLRURL="http://www.antlr2.org/download/${ANTLRTAR}"
 # NCO
-NCOVER="4.6.4"
+NCOVER="4.6.5"
 NCODIR="$LOCALSRC/nco-$NCOVER"
 NCOTAR="nco-$NCOVER.tar.gz"
 NCOURL="http://nco.sourceforge.net/src/$NCOTAR"
