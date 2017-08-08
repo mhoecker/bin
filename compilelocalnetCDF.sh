@@ -101,10 +101,10 @@ HDF5DIR="$LOCALSRC/hdf5-$HDF5VER"
 HDF5TAR="hdf5-$HDF5VER.tar.gz"
 HDF5URL="http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.0-patch1/src/$HDF5TAR"
 # NETCDF 
-NETCDFVER="4.4.1.1"
-NETCDFDIR="$LOCALSRC/netcdf-$NETCDFVER"
-NETCDFTAR="netcdf-$NETCDFVER.tar.gz"
-NETCDFURL="ftp://ftp.unidata.ucar.edu/pub/netcdf/$NETCDFTAR"
+NETCDFVER="4.5.0-rc2"
+NETCDFDIR="$LOCALSRC/netcdf-c-$NETCDFVER"
+NETCDFTAR="netcdf-c-$NETCDFVER.tar.gz"
+NETCDFURL="https://github.com/Unidata/netcdf-c/archive/v$NETCDFVER.tar.gz"
 # NETCDF-FORTRAN
 NETCDFFVER="4.4.4"
 NETCDFFDIR="$LOCALSRC/netcdf-fortran-$NETCDFFVER"
@@ -197,7 +197,7 @@ fi
 # INSTALL NETCDF?
 if [ "$NETCDF" -eq 1 ]; then
 	#Get netCDF
-	wget -c -N -nd -nH $NETCDFURL -P $LOCALSRC
+	wget -c -N -nd -nH $NETCDFURL -O $LOCALSRC/$NETCDFTAR
 	tar -C $LOCALSRC -zxf $LOCALSRC/$NETCDFTAR	
 	#Configure and Make netCDF
 	cd $NETCDFDIR
