@@ -101,15 +101,15 @@ HDF5DIR="$LOCALSRC/hdf5-$HDF5VER"
 HDF5TAR="hdf5-$HDF5VER.tar.gz"
 HDF5URL="http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.0-patch1/src/$HDF5TAR"
 # NETCDF 
-NETCDFVER="4.5.0-rc2"
-NETCDFDIR="$LOCALSRC/netcdf-c-$NETCDFVER"
-NETCDFTAR="netcdf-c-$NETCDFVER.tar.gz"
-NETCDFURL="https://github.com/Unidata/netcdf-c/archive/v$NETCDFVER.tar.gz"
+NETCDFVER="4.6.0"
+NETCDFDIR="$LOCALSRC/netcdf-$NETCDFVER"
+NETCDFTAR="netcdf-$NETCDFVER.tar.gz"
+NETCDFURL="https://www.unidata.ucar.edu/downloads/netcdf/ftp/netcdf-$NETCDFVER.tar.gz"
 # NETCDF-FORTRAN
 NETCDFFVER="4.4.4"
 NETCDFFDIR="$LOCALSRC/netcdf-fortran-$NETCDFFVER"
 NETCDFFTAR="netcdf-fortran-$NETCDFFVER.tar.gz"
-NETCDFFURL="ftp://ftp.unidata.ucar.edu/pub/netcdf/$NETCDFFTAR"
+NETCDFFURL="https://github.com/Unidata/netcdf-fortran/archive/v$NETCDFFVER.tar.gz"
 # UDUNITS
 UDUVER="2.2.24"
 UDUDIR="$LOCALSRC/udunits-$UDUVER"
@@ -212,7 +212,7 @@ fi
 if [ "$NETCDFF" -eq 1 ]; then
 	#Get netCDF FORTRAN library
 	echo $NETCDFFURL
-	wget -c -N -nd -nH $NETCDFFURL -P $LOCALSRC
+	wget -c -N -nd -nH $NETCDFFURL -O $LOCALSRC/$NETCDFFTAR
 	tar -C $LOCALSRC -zxf $LOCALSRC/$NETCDFFTAR	
 	#Configure and Make netCDF FORTRAN interface
 	cd $NETCDFFDIR
